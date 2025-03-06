@@ -1,0 +1,34 @@
+{
+  "annonces": [
+    {
+      "id": "1",
+      "title": "Appartement Moderneee",
+      "price": "2500002",
+      "residenceid": "2"
+    },
+    {
+      "id": "77",
+      "title": "Qjj",
+      "price": "44",
+      "residenceid": "kq"
+    },
+    {
+      "id": "5",
+      "title": "Wg",
+      "price": "25",
+      "residenceid": "523"
+    },
+    {
+      "id": "1254",
+      "title": "Ajgyb",
+      "price": "4",
+      "residenceid": "214"
+    },
+    {
+      "id": "52",
+      "title": "Wyuhj",
+      "price": "000",
+      "residenceid": "14"
+    }
+  ]
+}

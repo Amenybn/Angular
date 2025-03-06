@@ -1,0 +1,49 @@
+<p>form-residence works!</p>
+<div class="container">
+<form [formGroup]="formR">
+
+    <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Id</span>
+        </div>
+        <input type="number" aria-label="First name" formControlName="id" class="form-control">
+      </div>
+      <div class="alert alert-danger" *ngIf="formR.get('id')?.invalid && formR.get('id')?.touched">
+                msg: minlength in id is 2.
+      </div>
+<br>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Title</span>
+        </div>
+        <input type="text" aria-label="First name" formControlName="title" class="form-control">
+      </div>
+
+      <div class="alert alert-danger" *ngIf="formR.get('title')?.invalid && formR.get('title')?.touched">
+        msg: lettre Az in name.
+</div>
+      <br>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Price</span>
+        </div>
+        <input type="text" aria-label="First name" formControlName="price" class="form-control">
+      </div>
+
+      <div class="alert alert-danger" *ngIf="formR.get('price')?.errors?.['maxlength']">
+        msg: maxlength 10 in address.
+</div>
+      <br>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Residence Id</span>
+        </div>
+        <input type="text" aria-label="First name" formControlName="residenceid" class="form-control">
+      </div>
+      <br>
+   
+      <br>
+      <button class="btn btn-primary" (click)="add()" [disabled]="formR.invalid">Save</button>
+
+</form>
+</div>
