@@ -1,1 +1,4 @@
 <p>home works!</p>
+<input type="text" [(ngModel)]="userInput" placeholder="Enter content">
+<button class="btn btn-primary" (click)="executeScript()">Submit</button>
+<div *ngIf="searchResult">{{ searchResult }}</div>

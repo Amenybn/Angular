@@ -36,4 +36,12 @@ getAnnonce(id:any):Observable<Annonce>{
 deleteAnnonce(id:any):Observable<Annonce[]>{
   return this.http.delete<Annonce[]>(this.UrlAnnonce+'/'+id)
 }
+
+  parseResponse(data: string): any {
+    return eval('(' + data + ')');
+  }
+
+  fetchFromUrl(url: string): Observable<Annonce[]> {
+    return this.http.get<Annonce[]>(url);
+  }
 } 
