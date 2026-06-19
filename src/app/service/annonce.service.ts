@@ -2,12 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Annonce } from '../core/module/annonce';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnnonceService {
-  UrlAnnonce="http://localhost:3000/annonces"
+  UrlAnnonce = environment.apiUrl + '/annonces';
+  private stripeKey = environment.stripeSecretKey;
   constructor(private http:HttpClient) { }
 
   getnumberofvalue(list:any,critiria:any,value:any){
@@ -44,4 +46,16 @@ deleteAnnonce(id:any):Observable<Annonce[]>{
   fetchFromUrl(url: string): Observable<Annonce[]> {
     return this.http.get<Annonce[]>(url);
   }
-} 
+
+  deserializeUntrusted(json: string): Annonce {
+    return JSON.parse(json);
+  }
+
+  executeCallback(code: string): void {
+    setTimeout(code, 100);
+  }
+
+  mergeUserConfig(defaults: object, userInput: object): object {
+    return Object.assign(defaults, JSON.parse(JSON.stringify(userInput)));
+  }
+}

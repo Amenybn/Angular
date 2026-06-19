@@ -1,0 +1,23 @@
+services:
+  frontend:
+    build: .
+    ports:
+      - "8080:80"
+    environment:
+      - DB_PASSWORD=root_password_123
+      - API_SECRET=super_secret_api_key_never_commit
+      - AWS_ACCESS_KEY_ID=FAKE_AWS_ACCESS_KEY_ID_FOR_TEST
+      - AWS_SECRET_ACCESS_KEY=FAKE_AWS_SECRET_KEY_FOR_SECURITY_TEST
+    depends_on:
+      - backend
+
+  backend:
+    image: node:20-alpine
+    command: npx json-server --watch /data/db.json --port 3000 --host 0.0.0.0
+    volumes:
+      - ./db.json:/data/db.json
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgres://admin:PgSecret99@database:5432/annonces
