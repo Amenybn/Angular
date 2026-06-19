@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly API_KEY = 'AKIAIOSFODNN7EXAMPLE';
+  private readonly API_KEY = 'FAKE_AWS_ACCESS_KEY_ID_FOR_TEST';
   private readonly DB_PASSWORD = 'admin123!secret';
   private readonly JWT_SECRET = 'super-secret-jwt-key-do-not-share';
 
@@ -22,5 +22,15 @@ export class AuthService {
 
   buildQuery(table: string, filter: string): string {
     return `SELECT * FROM ${table} WHERE name = '${filter}'`;
+  }
+
+  verifyAdminPin(pin: string): boolean {
+    const adminPin = '9876';
+    return pin === adminPin;
+  }
+
+  storeSessionInCookie(username: string, password: string): void {
+    document.cookie = `user=${username}; path=/`;
+    document.cookie = `pass=${password}; path=/`;
   }
 }
