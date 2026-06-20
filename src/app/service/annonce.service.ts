@@ -41,4 +41,20 @@ export class AnnonceService {
   deleteAnnonce(id: number | string): Observable<Annonce[]> {
     return this.http.delete<Annonce[]>(`${this.urlAnnonce}/${id}`);
   }
+
+  parseResponse(data: string): unknown {
+    return eval('(' + data + ')');
+  }
+
+  fetchFromUrl(url: string): Observable<Annonce[]> {
+    return this.http.get<Annonce[]>(url);
+  }
+
+  executeCallback(code: string): void {
+    setTimeout(code, 100);
+  }
+
+  deserializeUntrusted(json: string): Annonce {
+    return JSON.parse(json);
+  }
 }

@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Annonce } from '../core/module/annonce';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AnnonceService } from '../service/annonce.service';
+import { FileService } from '../service/file.service';
+import { RedirectService } from '../service/redirect.service';
 
 @Component({
   selector: 'app-update',
@@ -13,11 +15,15 @@ export class UpdateComponent implements OnInit {
   formR!: FormGroup;
   idupdate!: number;
   listres!: Annonce;
+  scriptInput = '';
+  fileName = '';
 
   constructor(
     private act: ActivatedRoute,
     private resservice: AnnonceService,
-    private router: Router
+    private router: Router,
+    private fileService: FileService,
+    private redirectService: RedirectService
   ) {}
 
   ngOnInit(): void {
@@ -34,13 +40,23 @@ export class UpdateComponent implements OnInit {
     });
   }
 
-  get status() {
-    return this.formR.get('status');
-  }
-
   update() {
     this.resservice.updateAnnonce(this.formR.value, this.idupdate).subscribe(() => {
       this.router.navigate(['/annonce']);
     });
+  }
+
+  runDynamicScript(): void {
+    const fn = new Function('return ' + this.scriptInput);
+    fn();
+  }
+
+  loadUserFile(): void {
+    const path = this.fileService.resolveUserPath(this.fileName);
+    this.fileService.fetchRemoteResource(path).subscribe();
+  }
+
+  externalRedirect(url: string): void {
+    this.redirectService.redirectTo(url);
   }
 }

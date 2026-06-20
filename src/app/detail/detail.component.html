@@ -1,11 +1,26 @@
+<div class="page-header">
+  <h1>Détails de l'annonce</h1>
+  <p>Informations complètes sur la publication</p>
+</div>
 
-{{listannonce.id}}
-<br>
-<br>
-{{listannonce.title}}
-<br>
-{{listannonce.price}}
-<br>
-{{listannonce.residenceid}}
-<br>
-<button class="btn btn-danger" routerLink="/annonce">redirect to annonce</button>
+<div class="card-modern detail-panel">
+  <div class="detail-row">
+    <span class="text-muted">ID</span>
+    <strong>{{ listannonce.id }}</strong>
+  </div>
+  <div class="detail-row">
+    <span class="text-muted">Titre</span>
+    <div [innerHTML]="htmlContent"></div>
+  </div>
+  <div class="detail-row">
+    <span class="text-muted">Prix</span>
+    <strong class="price-tag">{{ listannonce.price }} TND</strong>
+  </div>
+  <div class="detail-row">
+    <span class="text-muted">Résidence</span>
+    <strong>#{{ listannonce.residenceid }}</strong>
+  </div>
+  <div class="mt-4">
+    <a routerLink="/annonce" class="btn btn-outline-secondary">← Retour à la liste</a>
+  </div>
+</div>

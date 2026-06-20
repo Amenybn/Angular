@@ -1,57 +1,39 @@
-<!--<table border="3">
-    <tr>
-        <td>id</td>
-        <td> name</td>
-        <td>address</td>
-        <td>image</td>
-        <td>status</td>
-    </tr>
-    <tr *ngFor="let i of listResidences">
-        <td>{{i.id}}</td>
-        <td>{{i.name | uppercase}}</td>
-        <td>{{i.address}}</td>
-        <td> <img [src]="i.image" alt="img" width="100" height="100"></td>
-        <td>{{i.status}}</td>
-    </tr>
-</table>
-<input type="text" [(ngModel)]="s">
-<div *ngFor="let i of listResidences">
-    <div *ngIf="s==i.name">
-        <ul>
-            <li>{{i.name}}</li>
-        </ul>
-    </div>
-    
+<div class="page-header d-flex justify-content-between align-items-end flex-wrap gap-2">
+  <div>
+    <h1>Annonces</h1>
+    <p>{{ listserviceannonce.length }} publication(s) disponible(s)</p>
+  </div>
+  <a routerLink="/AddAnnonce" class="btn btn-primary">+ Nouvelle annonce</a>
+</div>
 
-</div>-->
-
-<div class="row">
-    <div
-      *ngFor="let i of listserviceannonce"
-      class="card m-3"
-      style="width: 18rem"
-    >
-     
-      <div class="card-body">
-        <h5 class="card-title">{{ i.title | uppercase }}</h5>
-        <h5 class="card-title">{{ i.price }}</h5>
-        <p class="card-text">{{ i.residenceid }}</p>
-        <button class="btn btn-success" (click)="listefavoris(i)">
-          {{ isfavoris(i) ? "unlike" : "like" }}
+<div class="annonce-grid" *ngIf="listserviceannonce.length; else empty">
+  <div *ngFor="let i of listserviceannonce" class="card-modern annonce-card">
+    <div class="card-img-top">🏢</div>
+    <div class="p-3">
+      <h5 class="mb-1">{{ i.title | uppercase }}</h5>
+      <div class="price-tag">{{ i.price }} TND</div>
+      <p class="text-muted small mt-2 mb-0">Résidence #{{ i.residenceid }}</p>
+      <div class="card-actions">
+        <button class="btn btn-sm" [class.btn-warning]="isfavoris(i)" [class.btn-outline-secondary]="!isfavoris(i)" (click)="listefavoris(i)">
+          {{ isfavoris(i) ? '★ Favori' : '☆ Like' }}
         </button>
-        <button class="btn btn-danger" (click)="deleterannonce(i.id)">
-          Delete
-        </button>
-        <button class="btn btn-dark" [routerLink]="['detailsannonce', i.id]">
-          show dtails
-        </button>
-        <button class="btn btn-dark" [routerLink]="['update', i.id]">
-          Update
-        </button>
+        <button class="btn btn-sm btn-outline-danger" (click)="deleterannonce(i.id)">Supprimer</button>
+        <a class="btn btn-sm btn-outline-primary" [routerLink]="['detailsannonce', i.id]">Détails</a>
+        <a class="btn btn-sm btn-outline-dark" [routerLink]="['update', i.id]">Modifier</a>
       </div>
     </div>
   </div>
-  
-  <button class="btn btn-success" (click)="shownumber()">show Number</button>
-  <div *ngIf="num != null">le nombre est : {{ num }}</div>
-  
+</div>
+
+<ng-template #empty>
+  <div class="card-modern p-5 text-center text-muted">
+    <p class="fs-4 mb-2">Aucune annonce</p>
+    <p>Commencez par ajouter une nouvelle publication.</p>
+    <a routerLink="/AddAnnonce" class="btn btn-primary mt-2">Ajouter une annonce</a>
+  </div>
+</ng-template>
+
+<div class="card-modern p-3 mt-4">
+  <button class="btn btn-outline-secondary btn-sm" (click)="shownumber()">Statistiques</button>
+  <span *ngIf="num != null" class="ms-2 text-muted">Nombre : {{ num }}</span>
+</div>

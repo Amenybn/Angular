@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Annonce } from '../core/module/annonce';
 import { AnnonceService } from '../service/annonce.service';
 import { ActivatedRoute } from '@angular/router';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-detail',
@@ -11,16 +12,19 @@ import { ActivatedRoute } from '@angular/router';
 export class DetailComponent implements OnInit {
   id!: number;
   listannonce: Annonce = new Annonce();
+  htmlContent!: SafeHtml;
 
   constructor(
     private act: ActivatedRoute,
-    private resServ: AnnonceService
+    private resServ: AnnonceService,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {
     this.id = this.act.snapshot.params['id'];
     this.resServ.getAnnonce(this.id).subscribe((data) => {
       this.listannonce = data;
+      this.htmlContent = this.sanitizer.bypassSecurityTrustHtml(this.listannonce.title);
     });
   }
 }

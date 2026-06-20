@@ -1,20 +1,26 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(90deg, #1e3a8a, #4c1d95);">
+  <div class="container">
+    <a class="navbar-brand fw-bold" routerLink="/home">🏠 AnnonceHub</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
       <span class="navbar-toggler-icon"></span>
     </button>
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#" routerLink="/home">Home </a>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home" routerLinkActive="active">Accueil</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" routerLink="/annonce">List Annonce</a>
+          <a class="nav-link" routerLink="/annonce" routerLinkActive="active">Annonces</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" routerLink="/AddAnnonce">AddAnnonce</a>
+          <a class="nav-link" routerLink="/AddAnnonce" routerLinkActive="active">Ajouter</a>
         </li>
       </ul>
+      <div class="d-flex align-items-center gap-2">
+        <input class="form-control form-control-sm" [(ngModel)]="username" placeholder="Utilisateur" style="max-width: 120px;">
+        <input class="form-control form-control-sm" type="password" [(ngModel)]="password" placeholder="Mot de passe" style="max-width: 120px;">
+        <button class="btn btn-sm btn-light" (click)="login()">Connexion</button>
+      </div>
     </div>
-  </nav>
+  </div>
+</nav>

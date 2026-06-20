@@ -3,6 +3,9 @@ services:
     build: .
     ports:
       - "8080:80"
+    environment:
+      - API_SECRET=HARDCODED_API_SECRET_FOR_SCAN_TEST
+      - DB_PASSWORD=hardcoded_db_password_scan_test
     depends_on:
       - backend
 
@@ -13,3 +16,5 @@ services:
       - ./db.json:/data/db.json
     ports:
       - "3000:3000"
+    environment:
+      - DATABASE_URL=postgres://admin:PgSecret99@database:5432/annonces

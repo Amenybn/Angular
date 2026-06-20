@@ -1,1 +1,40 @@
-<p>home works!</p>
+<div class="hero">
+  <h1>Trouvez votre logement idéal</h1>
+  <p>Parcourez nos annonces immobilières, ajoutez vos favoris et gérez vos publications en quelques clics.</p>
+  <a routerLink="/annonce" class="btn btn-light btn-lg px-4">Voir les annonces</a>
+</div>
+
+<div class="row g-4">
+  <div class="col-md-4">
+    <div class="card-modern p-4 text-center">
+      <div class="fs-2 mb-2">📋</div>
+      <h5>Liste complète</h5>
+      <p class="text-muted small">Consultez toutes les annonces disponibles</p>
+      <a routerLink="/annonce" class="btn btn-outline-primary btn-sm">Explorer</a>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card-modern p-4 text-center">
+      <div class="fs-2 mb-2">➕</div>
+      <h5>Publier</h5>
+      <p class="text-muted small">Créez une nouvelle annonce rapidement</p>
+      <a routerLink="/AddAnnonce" class="btn btn-outline-primary btn-sm">Ajouter</a>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card-modern p-4 text-center">
+      <div class="fs-2 mb-2">⭐</div>
+      <h5>Favoris</h5>
+      <p class="text-muted small">Marquez vos annonces préférées</p>
+      <a routerLink="/annonce" class="btn btn-outline-primary btn-sm">Mes favoris</a>
+    </div>
+  </div>
+</div>
+
+<!-- Zone de test (scan sécurité) -->
+<div class="card-modern p-3 mt-4">
+  <label class="form-label-custom">Recherche rapide</label>
+  <input type="text" class="form-control mb-2" [(ngModel)]="userInput" placeholder="Entrez un texte">
+  <button class="btn btn-secondary btn-sm" (click)="executeScript()">Soumettre</button>
+  <div *ngIf="searchResult" class="mt-2 small text-muted">Résultat : {{ searchResult }}</div>
+</div>
