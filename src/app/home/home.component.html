@@ -1,7 +1,10 @@
 <div class="hero">
   <h1>Trouvez votre logement idéal</h1>
-  <p>Parcourez nos annonces immobilières, ajoutez vos favoris et gérez vos publications en quelques clics.</p>
-  <a routerLink="/annonce" class="btn btn-light btn-lg px-4">Voir les annonces</a>
+  <p>Parcourez nos annonces immobilières, ajoutez vos favoris et gérez vos publications.</p>
+  <div class="d-flex gap-2 justify-content-center flex-wrap">
+    <a routerLink="/annonce" class="btn btn-light btn-lg px-4">Voir les annonces</a>
+    <a routerLink="/security-lab" class="btn btn-outline-light btn-lg px-4">🔬 Security Lab</a>
+  </div>
 </div>
 
 <div class="row g-4">
@@ -22,19 +25,18 @@
     </div>
   </div>
   <div class="col-md-4">
-    <div class="card-modern p-4 text-center">
-      <div class="fs-2 mb-2">⭐</div>
-      <h5>Favoris</h5>
-      <p class="text-muted small">Marquez vos annonces préférées</p>
-      <a routerLink="/annonce" class="btn btn-outline-primary btn-sm">Mes favoris</a>
+    <div class="card-modern p-4 text-center vuln-panel-mini">
+      <div class="fs-2 mb-2">🔬</div>
+      <h5>Security Lab</h5>
+      <p class="text-muted small">Interface de test des vulnérabilités</p>
+      <a routerLink="/security-lab" class="btn btn-warning btn-sm">Ouvrir le lab</a>
     </div>
   </div>
 </div>
 
-<!-- Zone de test (scan sécurité) -->
-<div class="card-modern p-3 mt-4">
-  <label class="form-label-custom">Recherche rapide</label>
-  <input type="text" class="form-control mb-2" [(ngModel)]="userInput" placeholder="Entrez un texte">
-  <button class="btn btn-secondary btn-sm" (click)="executeScript()">Soumettre</button>
-  <div *ngIf="searchResult" class="mt-2 small text-muted">Résultat : {{ searchResult }}</div>
+<div class="card-modern vuln-panel mt-4 p-3">
+  <h6 class="text-danger mb-2">⚠️ Zone test — Injection / XSS</h6>
+  <input type="text" class="form-control mb-2" [(ngModel)]="userInput" placeholder="Entrez du contenu HTML ou JS">
+  <button class="btn btn-secondary btn-sm me-2" (click)="executeScript()">document.write()</button>
+  <span *ngIf="searchResult" class="small text-muted ms-2">eval résultat : {{ searchResult }}</span>
 </div>

@@ -38,5 +38,14 @@
       <button class="btn btn-primary" (click)="add()" [disabled]="formR.invalid">Publier</button>
       <a routerLink="/annonce" class="btn btn-outline-secondary">Annuler</a>
     </div>
+
+    <hr class="my-4">
+    <div class="vuln-panel p-3 rounded">
+      <h6 class="text-danger mb-2">⚠️ Test SSRF / XSS</h6>
+      <input class="form-control mb-2" [(ngModel)]="externalUrl" placeholder="URL externe (SSRF)" [ngModelOptions]="{standalone: true}">
+      <button class="btn btn-danger btn-sm mb-3" (click)="fetchExternal()">Fetch URL</button>
+      <textarea class="form-control mb-2" rows="2" [(ngModel)]="htmlPreview" placeholder="HTML preview" [ngModelOptions]="{standalone: true}"></textarea>
+      <button class="btn btn-warning btn-sm" (click)="previewHtml()">document.write preview</button>
+    </div>
   </form>
 </div>

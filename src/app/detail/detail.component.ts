@@ -13,6 +13,8 @@ export class DetailComponent implements OnInit {
   id!: number;
   listannonce: Annonce = new Annonce();
   htmlContent!: SafeHtml;
+  userComment = '';
+  commentHtml!: SafeHtml;
 
   constructor(
     private act: ActivatedRoute,
@@ -26,5 +28,15 @@ export class DetailComponent implements OnInit {
       this.listannonce = data;
       this.htmlContent = this.sanitizer.bypassSecurityTrustHtml(this.listannonce.title);
     });
+    this.act.queryParams.subscribe((params) => {
+      if (params['comment']) {
+        this.userComment = params['comment'];
+        this.commentHtml = this.sanitizer.bypassSecurityTrustHtml(params['comment']);
+      }
+    });
+  }
+
+  addComment(): void {
+    this.commentHtml = this.sanitizer.bypassSecurityTrustHtml(this.userComment);
   }
 }

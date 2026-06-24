@@ -13,6 +13,7 @@ import { DetailComponent } from './detail/detail.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UpdateComponent } from './update/update.component';
+import { SecurityLabComponent } from './security-lab/security-lab.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { UpdateComponent } from './update/update.component';
     AnnonceComponent,
     AddannonceComponent,
     DetailComponent,
-    UpdateComponent
+    UpdateComponent,
+    SecurityLabComponent
   ],
   imports: [
     BrowserModule,

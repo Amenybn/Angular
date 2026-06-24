@@ -173,3 +173,24 @@ footer.site-footer a {
   color: #cbd5e1;
   text-decoration: none;
 }
+
+.vuln-panel {
+  border: 2px dashed #f59e0b;
+  background: #fffbeb;
+}
+
+.vuln-panel-mini {
+  border: 1px dashed #f59e0b;
+}
+
+.lab-nav-link {
+  color: #fbbf24 !important;
+  font-weight: 600;
+}
+
+.vuln-output {
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  padding: 0.75rem;
+  border-radius: 8px;
+}

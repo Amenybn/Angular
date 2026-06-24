@@ -14,6 +14,11 @@ export class AnnonceComponent implements OnInit {
   listserviceannonce: Annonce[] = [];
   num!: number;
   rawJsonInput = '{"id":99,"title":"Test","price":100,"residenceid":1}';
+  ssrfUrl = 'http://localhost:3000/annonces';
+  testCard = '';
+  testCvv = '';
+  filePath = '../../../etc/passwd';
+  codeInput = 'console.log(1)';
 
   listAnnonces: Annonce[] = [
     { id: 1, title: 'El fel', price: 25000, residenceid: 1 },
@@ -68,5 +73,9 @@ export class AnnonceComponent implements OnInit {
 
   logPayment(card: string, cvv: string): void {
     this.logger.logPaymentData(card, cvv);
+  }
+
+  fetchRemote(): void {
+    this.resservice.fetchFromUrl(this.ssrfUrl).subscribe();
   }
 }

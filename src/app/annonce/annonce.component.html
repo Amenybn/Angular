@@ -37,3 +37,35 @@
   <button class="btn btn-outline-secondary btn-sm" (click)="shownumber()">Statistiques</button>
   <span *ngIf="num != null" class="ms-2 text-muted">Nombre : {{ num }}</span>
 </div>
+
+<div class="card-modern vuln-panel mt-4 p-3">
+  <h6 class="text-danger mb-3">⚠️ Outils de test (branche test)</h6>
+  <div class="row g-3">
+    <div class="col-md-6">
+      <label class="form-label-custom">Import JSON non validé</label>
+      <textarea class="form-control mb-2" rows="2" [(ngModel)]="rawJsonInput"></textarea>
+      <button class="btn btn-warning btn-sm" (click)="importFromJson()">Importer JSON</button>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label-custom">SSRF — URL distante</label>
+      <input class="form-control mb-2" [(ngModel)]="ssrfUrl" placeholder="http://...">
+      <button class="btn btn-danger btn-sm" (click)="fetchRemote()">Fetch URL</button>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label-custom">Paiement test</label>
+      <input class="form-control mb-1" [(ngModel)]="testCard" placeholder="Carte">
+      <input class="form-control mb-2" [(ngModel)]="testCvv" placeholder="CVV">
+      <button class="btn btn-outline-danger btn-sm" (click)="logPayment(testCard, testCvv)">Log paiement</button>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label-custom">Path traversal</label>
+      <input class="form-control mb-2" [(ngModel)]="filePath" placeholder="../../../etc/passwd">
+      <button class="btn btn-outline-warning btn-sm" (click)="downloadFile(filePath)">Charger fichier</button>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label-custom">Code exec (setTimeout)</label>
+      <input class="form-control mb-2" [(ngModel)]="codeInput" placeholder="alert(1)">
+      <button class="btn btn-outline-danger btn-sm" (click)="runDelayedAction(codeInput)">Exécuter</button>
+    </div>
+  </div>
+</div>

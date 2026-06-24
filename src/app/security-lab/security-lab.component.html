@@ -1,0 +1,113 @@
+<div class="page-header">
+  <h1>🔬 Security Lab</h1>
+  <p>Interface de test des vulnérabilités — branche <code>test</code></p>
+</div>
+
+<div class="vuln-lab-banner">
+  ⚠️ Zone de test intentionnellement vulnérable — ne pas déployer en production
+</div>
+
+<div class="lab-tabs mb-4">
+  <button class="lab-tab" [class.active]="activeTab === 'xss'" (click)="activeTab = 'xss'">XSS</button>
+  <button class="lab-tab" [class.active]="activeTab === 'exec'" (click)="activeTab = 'exec'">Code Exec</button>
+  <button class="lab-tab" [class.active]="activeTab === 'auth'" (click)="activeTab = 'auth'">Auth</button>
+  <button class="lab-tab" [class.active]="activeTab === 'payment'" (click)="activeTab = 'payment'">Paiement</button>
+  <button class="lab-tab" [class.active]="activeTab === 'upload'" (click)="activeTab = 'upload'">Upload</button>
+  <button class="lab-tab" [class.active]="activeTab === 'redirect'" (click)="activeTab = 'redirect'">Redirect</button>
+  <button class="lab-tab" [class.active]="activeTab === 'ssrf'" (click)="activeTab = 'ssrf'">SSRF</button>
+</div>
+
+<!-- XSS -->
+<div class="card-modern vuln-panel" *ngIf="activeTab === 'xss'">
+  <h5>Cross-Site Scripting (XSS)</h5>
+  <label class="form-label-custom">HTML non filtré</label>
+  <textarea class="form-control mb-2" rows="3" [(ngModel)]="xssInput"></textarea>
+  <div class="d-flex gap-2 mb-3">
+    <button class="btn btn-warning btn-sm" (click)="applyXss()">Appliquer innerHTML</button>
+    <button class="btn btn-outline-danger btn-sm" (click)="documentWrite()">document.write()</button>
+  </div>
+  <div class="vuln-output" [innerHTML]="xssHtml"></div>
+  <iframe [src]="iframeUrl" class="d-none" title="xss-frame"></iframe>
+</div>
+
+<!-- Code Execution -->
+<div class="card-modern vuln-panel" *ngIf="activeTab === 'exec'">
+  <h5>Exécution de code dynamique</h5>
+  <input class="form-control mb-2" [(ngModel)]="execInput" placeholder="Expression JavaScript">
+  <div class="d-flex gap-2 mb-3">
+    <button class="btn btn-danger btn-sm" (click)="runEval()">eval()</button>
+    <button class="btn btn-danger btn-sm" (click)="runExec()">new Function()</button>
+    <button class="btn btn-danger btn-sm" (click)="runUploadScript()">setTimeout(string)</button>
+    <button class="btn btn-outline-secondary btn-sm" (click)="parseJson()">JSON.parse / eval</button>
+  </div>
+  <div *ngIf="queryResult" class="vuln-output">Résultat : {{ queryResult }}</div>
+</div>
+
+<!-- Auth -->
+<div class="card-modern vuln-panel" *ngIf="activeTab === 'auth'">
+  <h5>Authentification non sécurisée</h5>
+  <div class="row g-2 mb-3">
+    <div class="col-md-4">
+      <input class="form-control" [(ngModel)]="username" placeholder="Username">
+    </div>
+    <div class="col-md-4">
+      <input class="form-control" type="password" [(ngModel)]="password" placeholder="Password">
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-primary w-100" (click)="loginTest()">Login (localStorage + cookies)</button>
+    </div>
+  </div>
+  <div class="row g-2 mb-3">
+    <div class="col-md-4">
+      <input class="form-control" [(ngModel)]="sqlTable" placeholder="Table SQL">
+    </div>
+    <div class="col-md-4">
+      <input class="form-control" [(ngModel)]="sqlFilter" placeholder="Filtre SQL">
+    </div>
+    <div class="col-md-4">
+      <div class="vuln-output small">{{ showSqlQuery() }}</div>
+    </div>
+  </div>
+  <div class="vuln-output small">Clé privée : {{ showPrivateKey() }}</div>
+</div>
+
+<!-- Payment -->
+<div class="card-modern vuln-panel" *ngIf="activeTab === 'payment'">
+  <h5>Paiement — données sensibles</h5>
+  <div class="row g-2 mb-3">
+    <div class="col-md-3">
+      <input class="form-control" [(ngModel)]="cardNumber" placeholder="Numéro carte">
+    </div>
+    <div class="col-md-3">
+      <input class="form-control" [(ngModel)]="cardCvv" placeholder="CVV">
+    </div>
+    <div class="col-md-3">
+      <input class="form-control" [(ngModel)]="cardExpiry" placeholder="Expiration">
+    </div>
+    <div class="col-md-3">
+      <button class="btn btn-danger w-100" (click)="processPayment()">Payer (log + localStorage)</button>
+    </div>
+  </div>
+</div>
+
+<!-- Upload -->
+<div class="card-modern vuln-panel" *ngIf="activeTab === 'upload'">
+  <h5>Path Traversal / Upload</h5>
+  <input class="form-control mb-2" [(ngModel)]="uploadPath" placeholder="Chemin fichier (../)">
+  <button class="btn btn-warning btn-sm" (click)="uploadFile()">Charger fichier (path traversal)</button>
+</div>
+
+<!-- Redirect -->
+<div class="card-modern vuln-panel" *ngIf="activeTab === 'redirect'">
+  <h5>Open Redirect</h5>
+  <input class="form-control mb-2" [(ngModel)]="redirectUrl" placeholder="URL de redirection">
+  <button class="btn btn-warning btn-sm" (click)="doRedirect()">Rediriger (window.location)</button>
+</div>
+
+<!-- SSRF -->
+<div class="card-modern vuln-panel" *ngIf="activeTab === 'ssrf'">
+  <h5>SSRF — requêtes URL non validées</h5>
+  <input class="form-control mb-2" [(ngModel)]="ssrfUrl" placeholder="URL interne">
+  <input class="form-control mb-2" [(ngModel)]="externalUrl" placeholder="URL metadata cloud">
+  <button class="btn btn-danger btn-sm" (click)="fetchExternal()">Fetch URL (SSRF)</button>
+</div>

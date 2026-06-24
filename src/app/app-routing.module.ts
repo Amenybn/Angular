@@ -7,6 +7,7 @@ import { AnnonceComponent } from './annonce/annonce.component';
 import { AddannonceComponent } from './addannonce/addannonce.component';
 import { DetailComponent } from './detail/detail.component';
 import { UpdateComponent } from './update/update.component';
+import { SecurityLabComponent } from './security-lab/security-lab.component';
 
 
 const routes:Routes=[
@@ -18,6 +19,7 @@ const routes:Routes=[
  
 
   {path:"annonce/update/:id",component:UpdateComponent},
+  {path:"security-lab",component:SecurityLabComponent},
  
   {path:'**' ,component:NotfoundComponent},
 
